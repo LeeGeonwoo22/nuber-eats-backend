@@ -6,7 +6,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 @ObjectType()
 @Entity()
 export class Restaurant {
-  @PrimaryGeneratedColumn()
+  @PrimaryGeneratedColumn() // 기본키 
   @Field(type => Number)
   id: number;
 
