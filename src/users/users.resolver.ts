@@ -6,6 +6,7 @@ import {
 import { LoginInput, LoginOutput } from './dtos/login.dto';
 import { User } from './entities/user.entity';
 import { UserService } from './users.service';
+
 @Resolver(of => User)
 export class UserResolver {
   constructor(private readonly usersService: UserService) {}
@@ -45,4 +46,6 @@ export class UserResolver {
       };
     }
   }
+  @Query(returns => User)
+  me() {}
 }
