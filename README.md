@@ -19,3 +19,10 @@ The Backend of Nuber Eats
 - See Profile
 - Edit Profile
 - Verify Email
+
+## Restaurant Model
+
+- name
+- category
+- adress
+- coverImage
