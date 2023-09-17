@@ -9,7 +9,6 @@ import * as Joi from 'joi';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { JwtModule } from './jwt/jwt.module';
-import { JwtMiddleware } from './jwt/jwt.middleware';
 import { AuthModule } from './auth/auth.module';
 import { Verification } from './users/entities/verification.entity';
 import { MailModule } from './mail/mail.module';
@@ -23,6 +22,7 @@ import { OrderItem } from './orders/entities/orders-item.entity';
 import { CommonModule } from './common/common.module';
 import { PaymentModule } from './payment/payments.module';
 import { ScheduleModule } from '@nestjs/schedule';
+import { Payment } from './payment/entities/payment.entity';
 
 @Module({
   imports: [
@@ -88,6 +88,7 @@ import { ScheduleModule } from '@nestjs/schedule';
         Dish,
         Order,
         OrderItem,
+        Payment
       ],
     }),
     ScheduleModule.forRoot(),
@@ -101,13 +102,12 @@ import { ScheduleModule } from '@nestjs/schedule';
     }),
     UsersModule,
     AuthModule,
-    // MailModule,
     RestaurantsModule,
     OrdersModule,
     CommonModule,
     PaymentModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
