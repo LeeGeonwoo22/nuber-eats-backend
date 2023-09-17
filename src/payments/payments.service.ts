@@ -17,7 +17,7 @@ export class PaymentService {
     @InjectRepository(Payment)
     private readonly payments: Repository<Payment>,
     @InjectRepository(Restaurant)
-    private readonly restaurants: Repository<Restaurant>, // private schedulerRegistry: SchedulerRegistry,
+    private readonly restaurants: Repository<Restaurant>, 
   ) {}
 
   async createPayment(
@@ -92,22 +92,5 @@ export class PaymentService {
       await this.restaurants.save(restaurant);
     });
   }
-  //   @Cron('30 * * * * *', {
-  //     name: 'myJob',
-  //   })
-  //   checkForPayments() {
-  //     console.log('Checking for payments....(cron)');
-  //     const job = this.schedulerRegistry.getCronJob('myJob');
-  //     job.stop();
-  //   }
 
-  //   @Interval(5000)
-  //   checkForPaymentsI() {
-  //     console.log('Checking for payments....(interval)');
-  //   }
-
-  //   @Timeout(20000)
-  //   afterStarts() {
-  //     console.log('Congrats!');
-  //   }
 }

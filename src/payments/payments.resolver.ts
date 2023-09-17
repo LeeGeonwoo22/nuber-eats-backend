@@ -22,9 +22,9 @@ export class PaymentResolver {
   ): Promise<CreatePaymentOuput> {
     return this.paymentService.createPayment(owner, createPaymentInput);
   }
-  // @Query((returns) => GetPaymentsOutput)
-  // @Role(['Owner'])
-  // getPayments(@AuthUser() user: User): Promise<GetPaymentsOutput> {
-  //   return this.paymentService.getPayments(user);
-  // }
+  @Query((returns) => GetPaymentsOutput)
+  @Role(['Owner'])
+  getPayments(@AuthUser() user: User): Promise<GetPaymentsOutput> {
+    return this.paymentService.getPayments(user);
+  }
 }

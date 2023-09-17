@@ -6,7 +6,7 @@ import { PaymentResolver } from './payments.resolver';
 import { Restaurant } from 'src/restaurants/entities/restaurants.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Payment])],
-  providers: [PaymentService, PaymentResolver, Restaurant],
+  imports: [TypeOrmModule.forFeature([Payment, Restaurant])],
+  providers: [PaymentService, PaymentResolver],
 })
 export class PaymentsModule {}

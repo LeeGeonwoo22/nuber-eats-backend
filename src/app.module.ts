@@ -9,6 +9,7 @@ import * as Joi from 'joi';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { JwtModule } from './jwt/jwt.module';
+
 import { AuthModule } from './auth/auth.module';
 import { Verification } from './users/entities/verification.entity';
 import { MailModule } from './mail/mail.module';
@@ -102,6 +103,7 @@ import { Payment } from './payment/entities/payment.entity';
     }),
     UsersModule,
     AuthModule,
+    // MailModule,
     RestaurantsModule,
     OrdersModule,
     CommonModule,
