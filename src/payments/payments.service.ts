@@ -17,8 +17,11 @@ export class PaymentService {
     @InjectRepository(Payment)
     private readonly payments: Repository<Payment>,
     @InjectRepository(Restaurant)
-    private readonly restaurants: Repository<Restaurant>, 
-  ) {}
+    private readonly restaurants: Repository<Restaurant>,
+  ) {
+    console.log(this.restaurants);
+  }
+
 
   async createPayment(
     owner: User,
@@ -77,20 +80,19 @@ export class PaymentService {
       };
     }
   }
-  @Interval(2000)
-  async checkPromotedRestaurants() {
-    const restaurants = await this.restaurants.find({
-      where: {
-        isPromoted: true,
-        promotedUntil: LessThan(new Date()),
-      },
-    });
-    console.log(restaurants);
-    restaurants.forEach(async (restaurant) => {
-      restaurant.isPromoted = false;
-      restaurant.promotedUntil = null;
-      await this.restaurants.save(restaurant);
-    });
-  }
-
+  // @Interval(2000)
+  // async checkPromotedRestaurants() {
+  //   const restaurants = await this.restaurants.find({
+  //     where: {
+  //       isPromoted: true,
+  //       promotedUntil: LessThan(new Date()),
+  //     },
+  //   });
+  //   console.log(restaurants);
+  //   restaurants.forEach(async (restaurant) => {
+  //     restaurant.isPromoted = false;
+  //     restaurant.promotedUntil = null;
+  //     await this.restaurants.save(restaurant);
+  //   });
+  // }
 }
