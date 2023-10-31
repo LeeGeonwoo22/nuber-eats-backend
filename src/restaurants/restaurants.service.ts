@@ -276,6 +276,7 @@ export class RestaurantService {
       return { ok: false, error: 'Could not search for restaurants' };
     }
   }
+
   async createDish(
     owner: User,
     createDishInput: CreateDishInput,
@@ -318,11 +319,10 @@ export class RestaurantService {
     editDishInput: EditDishInput,
   ): Promise<EditDishOutput> {
     try {
-      const dish = await this.dishes.findOne(
-          {
-            where : {id : editDishInput.dishId}, relations : ['restaurant']
-          }
-        );
+      const dish = await this.dishes.findOne({
+        where: { id: editDishInput.dishId },
+        relations: ['restaurant'],
+      });
       if (!dish) {
         return {
           ok: false,
@@ -357,10 +357,10 @@ export class RestaurantService {
     { dishId }: DeleteDishInput,
   ): Promise<DeleteDishOutput> {
     try {
-      const dish = await this.dishes.findOne(
-        {
-          where : {id : dishId}, relations : ['restaurant']
-        });
+      const dish = await this.dishes.findOne({
+        where: { id: dishId },
+        relations: ['restaurant'],
+      });
       if (!dish) {
         return {
           ok: false,
@@ -384,4 +384,39 @@ export class RestaurantService {
       };
     }
   }
+  
+  // async myRestaurants(owner: User): Promise<MyRestaurantsOutput> {
+  //   try {
+  //     const restaurants = await this.restaurants.find({ owner });
+  //     return {
+  //       restaurants,
+  //       ok: true,
+  //     };
+  //   } catch {
+  //     return {
+  //       ok: false,
+  //       error: 'Could not find restaurants.',
+  //     };
+  //   }
+  // }
+  // async myRestaurant(
+  //   owner: User,
+  //   { id }: MyRestaurantInput,
+  // ): Promise<MyRestaurantOutput> {
+  //   try {
+  //     const restaurant = await this.restaurants.findOne(
+  //       { owner, id },
+  //       { relations: ['menu', 'orders'] },
+  //     );
+  //     return {
+  //       restaurant,
+  //       ok: true,
+  //     };
+  //   } catch {
+  //     return {
+  //       ok: false,
+  //       error: 'Could not find restaurant',
+  //     };
+  //   }
+  // }
 }

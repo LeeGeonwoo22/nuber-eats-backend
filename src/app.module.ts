@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -9,7 +7,6 @@ import * as Joi from 'joi';
 import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { JwtModule } from './jwt/jwt.module';
-
 import { AuthModule } from './auth/auth.module';
 import { Verification } from './users/entities/verification.entity';
 import { MailModule } from './mail/mail.module';
@@ -21,9 +18,9 @@ import { Order } from './orders/entities/orders.entity';
 import { OrdersModule } from './orders/orders.module';
 import { OrderItem } from './orders/entities/orders-item.entity';
 import { CommonModule } from './common/common.module';
-import { PaymentModule } from './payment/payments.module';
+import { PaymentsModule } from './payments/payments.module';
 import { ScheduleModule } from '@nestjs/schedule';
-import { Payment } from './payment/entities/payment.entity';
+import { Payment } from './payments/entities/payment.entity';
 
 @Module({
   imports: [
@@ -55,6 +52,7 @@ import { Payment } from './payment/entities/payment.entity';
       autoSchemaFile: true,
       sortSchema: true,
       playground: true,
+      
       // context: ({ req }) => {
       //   console.log(req);
       //   return { user: req['user'] };
@@ -107,7 +105,7 @@ import { Payment } from './payment/entities/payment.entity';
     RestaurantsModule,
     OrdersModule,
     CommonModule,
-    PaymentModule,
+    PaymentsModule,
   ],
   controllers: [],
   providers: [],

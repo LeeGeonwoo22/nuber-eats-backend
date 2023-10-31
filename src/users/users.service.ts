@@ -50,17 +50,20 @@ export class UserService {
   async login({ email, password }: LoginInput): Promise<LoginOutput> {
     // make a JWT and give it to the user
     try {
+      // 1. find user 
       const user = await this.users.findOne({
+        
         where: { email },
-        select: ['password'],
+        select: ['id','password'],
       });
+      console.log('user : ', user)
       if (!user) {
         return {
           ok: false,
           error: 'User not found',
         };
       }
-
+      // 2. check password is correct 
       const passwordCorrect = await user.checkPassword(password);
       if (!passwordCorrect) {
         return {
@@ -68,7 +71,7 @@ export class UserService {
           error: 'Wrong password',
         };
       }
-
+      // 3. make a jwst and give it to the user
       const token = this.jwtService.sign(user.id);
 
       return {
@@ -78,7 +81,8 @@ export class UserService {
     } catch (error) {
       return {
         ok: false,
-        error :"Can't log user in.",
+        error : error,
+        
       };
     }
   }
@@ -87,7 +91,7 @@ export class UserService {
     try {
       const user = await this.users.findOne({ where: { id } });
       if (user) {
-        console.log('findUser :', user)
+        // console.log('findUser :', user)
         return {
           ok: true,
           user: user,
