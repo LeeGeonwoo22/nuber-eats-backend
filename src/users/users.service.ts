@@ -100,7 +100,7 @@ export class UserService {
         return { ok: false, error: 'User Not Found' };  
       }    
     } catch (error) {
-       return { ok: false, error: `${error} An error occurred while fetching user` }; 
+       return { ok: false, error: `An ${error} occurred while fetching user` }; 
     }
   }
 
