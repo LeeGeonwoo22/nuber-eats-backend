@@ -12,4 +12,5 @@ export class UserProfileInput {
 export class UserProfileOutput extends CoreOutput {
   @Field((type) => User, { nullable: true })
   user?: User;
+  // user?: { ok: true; user: User } | { ok: false; error: string };
 }

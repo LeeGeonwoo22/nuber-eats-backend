@@ -17,11 +17,7 @@ import { Role } from 'src/auth/role.decorator';
 @Resolver((of) => User)
 export class UserResolver {
   constructor(private readonly usersService: UserService) {}
-  @Query((returns) => Boolean)
-  hi() {
-    return true;
-  }
-
+  
   @Mutation((returns) => CreateAccountOutput)
   async createAccount(
     @Args('input') createAccountInput: CreateAccountInput,
@@ -34,14 +30,15 @@ export class UserResolver {
     return this.usersService.login(loginInput);
   }
 
-  // @UseGuards(AuthGuard)
   @Query((returns) => User)
+  @UseGuards(AuthGuard)
   @Role(['Any'])
   me(@AuthUser() authUser: User) {
+    // console.log('User_service_authUser :', authUser);
     return authUser;
   }
 
-  // @UseGuards(AuthGuard)
+  @UseGuards(AuthGuard)
   @Query((returns) => UserProfileOutput)
   @Role(['Any'])
   async userProfile(

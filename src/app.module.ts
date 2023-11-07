@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module, NestModule, RequestMethod } from '@nestjs/common';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -21,6 +21,7 @@ import { CommonModule } from './common/common.module';
 import { PaymentsModule } from './payments/payments.module';
 import { ScheduleModule } from '@nestjs/schedule';
 import { Payment } from './payments/entities/payment.entity';
+import { JwtMiddleware } from './jwt/jwt.middleware';
 
 @Module({
   imports: [
@@ -35,8 +36,8 @@ import { Payment } from './payments/entities/payment.entity';
         DB_USERNAME: Joi.string().required(),
         DB_PASSWORD: Joi.string().required(),
         DB_NAME: Joi.string().required(),
-        // SECRET_KEY: Joi.string().required(),
-        PRIVATE_KEY: Joi.string().required(),
+        SECRET_KEY: Joi.string().required(),
+        // PRIVATE_KEY: Joi.string().required(),
         MAILGUN_API_KEY: Joi.string().required(),
         MAILGUN_DOMAIN_NAME: Joi.string().required(),
         MAILGUN_FROM_EMAIL: Joi.string().required(),
@@ -52,11 +53,6 @@ import { Payment } from './payments/entities/payment.entity';
       autoSchemaFile: true,
       sortSchema: true,
       playground: true,
-      
-      // context: ({ req }) => {
-      //   console.log(req);
-      //   return { user: req['user'] };
-      // },
       context: ({ req, connection }) => {
         //   if (req) {
         //     return { user: req['user'] };
@@ -87,12 +83,12 @@ import { Payment } from './payments/entities/payment.entity';
         Dish,
         Order,
         OrderItem,
-        Payment
+        Payment,
       ],
     }),
     ScheduleModule.forRoot(),
     JwtModule.forRoot({
-      privateKey: process.env.PRIVATE_KEY,
+      privateKey: process.env.SECRET_KEY,
     }),
     MailModule.forRoot({
       apiKey: process.env.MAILGUN_API_KEY,
@@ -111,3 +107,12 @@ import { Payment } from './payments/entities/payment.entity';
   providers: [],
 })
 export class AppModule {}
+// export class AppModule implements NestModule{
+//   configure(consumer: MiddlewareConsumer) {
+//     // apply(...middleware: (Type<any> | Function)[]): MiddlewareConfigProxy;
+//     consumer.apply(JwtMiddleware).forRoutes({
+//       path :"/graphql",
+//       method : RequestMethod.POST
+//     })
+//   }
+// }

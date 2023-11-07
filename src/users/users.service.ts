@@ -56,7 +56,7 @@ export class UserService {
         where: { email },
         select: ['id','password'],
       });
-      console.log('user : ', user)
+      console.log('user login : ', user)
       if (!user) {
         return {
           ok: false,
@@ -73,7 +73,7 @@ export class UserService {
       }
       // 3. make a jwst and give it to the user
       const token = this.jwtService.sign(user.id);
-
+      // console.log('login token:', token)
       return {
         ok: true,
         token,
@@ -87,18 +87,20 @@ export class UserService {
     }
   }
 
-  async findById(id: number): Promise<UserProfileOutput> {
+  async findById(id: number): Promise<UserProfileOutput > {
     try {
       const user = await this.users.findOne({ where: { id } });
       if (user) {
-        // console.log('findUser :', user)
+        console.log('findUser :', user)
         return {
           ok: true,
           user: user,
         };
-      };      
+      }else {
+        return { ok: false, error: 'User Not Found' };  
+      }    
     } catch (error) {
-      return { ok: false, error: 'User Not Found' };
+       return { ok: false, error: `${error} An error occurred while fetching user` }; 
     }
   }
 
@@ -136,7 +138,7 @@ export class UserService {
       });
       if (verification) {
         verification.user.verified = true;
-        console.log(verification.user);
+        // console.log(verification.user);
         await this.users.save(verification.user);
         await this.verifications.delete(verification.id);
         return { ok: true };

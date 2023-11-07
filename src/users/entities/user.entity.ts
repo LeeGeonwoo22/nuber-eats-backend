@@ -47,7 +47,6 @@ export class User extends CoreEntity {
   @Field((type) => [Payment])
   @OneToMany((type) => Payment, (payment) => payment.user, { eager: true })
   payments: Payment[];
-
   @Field((type) => [Order])
   @OneToMany((type) => Order, (order) => order.driver)
   rides: Order[];
