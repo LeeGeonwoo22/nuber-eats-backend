@@ -17,7 +17,7 @@ import { Role } from 'src/auth/role.decorator';
 @Resolver((of) => User)
 export class UserResolver {
   constructor(private readonly usersService: UserService) {}
-  
+
   @Mutation((returns) => CreateAccountOutput)
   async createAccount(
     @Args('input') createAccountInput: CreateAccountInput,
@@ -48,6 +48,7 @@ export class UserResolver {
   }
 
   @Mutation((returns) => EditProfileOutput)
+  @UseGuards(AuthGuard)
   @Role(['Any'])
   async editProfile(
     @AuthUser() authUser: User,
