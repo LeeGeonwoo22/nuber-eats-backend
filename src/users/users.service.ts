@@ -57,7 +57,7 @@ export class UserService {
         where: { email },
         select: ['id','password'],
       });
-      console.log('user login : ', user)
+      // console.log('user login : ', user)
       if (!user) {
         return {
           ok: false,
@@ -92,7 +92,7 @@ export class UserService {
     try {
       const user = await this.users.findOne({ where: { id } });
       if (user) {
-        console.log('findUser :', user)
+        // console.log('findUser :', user)
         return {
           ok: true,
           user: user,
@@ -111,6 +111,7 @@ export class UserService {
   ): Promise<EditProfileOutput> {
     try {
       const user = await this.users.findOne({ where: { id: userId } });
+      console.log('editProfile :', userId,user)
       if (email) {
         user.email = email;
         user.verified = false;
@@ -140,7 +141,7 @@ export class UserService {
       });
       if (verification) {
         verification.user.verified = true;
-        // console.log(verification.user);
+        console.log(verification.user);
         await this.users.save(verification.user);
         await this.verifications.delete(verification.id);
         return { ok: true };

@@ -22,19 +22,19 @@ export class AuthGuard implements CanActivate {
     }
     const gqlContext = GqlExecutionContext.create(context).getContext();
     const token = gqlContext.token;
-    console.log('authBackend Token:', token); // Log the token to see if it's received correctly.
+    // console.log('authBackend Token:', token); // Log the token to see if it's received correctly.
     if (token) {
       const decoded = this.jwtService.verify(token.toString());
 
-      console.log('authBackend Decoded:', decoded); // Log the decoded token. 
+      //console.log('authBackend Decoded:', decoded); // Log the decoded token. 
       if (typeof decoded === 'object' && decoded.hasOwnProperty('id')) {
         
         // AuthGuard.canActivate (/home/corepen/바탕화면/Project/nuber-eats-backend/src/auth/auth.guard.ts:30:17
         // 여기 줄 다음부터 읽혀지지않음. 파악 완료. 
         const { user } = await this.userService.findById(decoded['id']);
-        console.log('authBackend User:', user); // Log the user to see if it's found.
+        //console.log('authBackend User:', user); // Log the user to see if it's found.
         if (user) {
-          console.log(gqlContext['user']);
+          //console.log(gqlContext['user']);
           gqlContext['user'] = user;
           if (roles.includes('Any')) {
             return true;
