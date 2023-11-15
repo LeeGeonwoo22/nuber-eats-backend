@@ -194,6 +194,10 @@ export class RestaurantService {
         ok: true,
         restaurants,
         category,
+
+        // totalPages: Math.ceil(totalResults / setPageContents),
+        totalPages: Math.ceil(totalResults / 10),
+        totalResults,
       };
     } catch {
       return {
