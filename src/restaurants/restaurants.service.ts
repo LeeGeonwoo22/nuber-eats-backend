@@ -54,10 +54,10 @@ export class RestaurantService {
       return {
         ok: true,
       };
-    } catch {
+    } catch(error) {
       return {
         ok: false,
-        error: 'Could not create restaurant',
+        error: `Could not create restaurant. occured this ${error}`,
       };
     }
   }

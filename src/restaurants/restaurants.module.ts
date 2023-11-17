@@ -11,12 +11,13 @@ import { CategoryRepository } from './repositrories/category.repository';
 import { Dish } from './entities/dish.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([Restaurant, CategoryRepository,Dish])],
+  imports: [TypeOrmModule.forFeature([Restaurant,CategoryRepository, Dish])],
   providers: [
     RestaurantResolver,
     CategoryResolver,
     DishResolver,
     RestaurantService,
+    // CategoryRepository
   ],
 })
 export class RestaurantsModule {}
