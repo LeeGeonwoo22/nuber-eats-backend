@@ -10,18 +10,19 @@ import {
 } from './dtos/create-payment.dto';
 import { GetPaymentsOutput } from './dtos/get-payments.dto';
 import { Cron, Interval, SchedulerRegistry, Timeout } from '@nestjs/schedule';
+import { LoggerService } from './logger.service';
 
-@Injectable()
 export class PaymentService {
   constructor(
     @InjectRepository(Payment)
     private readonly payments: Repository<Payment>,
     @InjectRepository(Restaurant)
     private readonly restaurants: Repository<Restaurant>,
+    private readonly logger: LoggerService, // LoggerService 주입
   ) {
-    console.log(this.restaurants);
+    this.logger.setContext('PaymentService'); // 로그 컨텍스트 설정
+    this.logger.log('Log message')
   }
-
 
   async createPayment(
     owner: User,
